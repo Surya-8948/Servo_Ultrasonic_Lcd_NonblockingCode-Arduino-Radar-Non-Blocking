@@ -1,49 +1,80 @@
-# 📡 Ultrasonic Radar Scanner using Arduino
+<div align="center">
 
-A simple **Arduino Radar Scanner** project using an **HC-SR04 Ultrasonic Sensor**, **SG90 Servo Motor**, and **16x2 I2C LCD**. The servo continuously scans from **0° to 180°** while the ultrasonic sensor measures the distance of nearby objects. The measured distance and current servo angle are displayed on the LCD.
+# 📡 Arduino Ultrasonic Radar Scanner
+
+### 🚀 A Non-Blocking Radar Scanner using Arduino UNO, HC-SR04, Servo Motor & 16×2 I2C LCD
+
+<p align="center">
+<img src="https://github.com/Surya-8948/Servo_Ultrasonic_Lcd_NonblockingCode-Arduino-Radar-Non-Blocking/blob/main/image.png?raw=true" width="900"/>
+</p>
+
+<p align="center">
+
+![Arduino](https://img.shields.io/badge/Arduino-UNO-00979D?style=for-the-badge&logo=arduino)
+![Language](https://img.shields.io/badge/Language-C%2B%2B-blue?style=for-the-badge)
+![Platform](https://img.shields.io/badge/Platform-Arduino-success?style=for-the-badge)
+![Programming](https://img.shields.io/badge/Programming-Embedded%20Systems-orange?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-red?style=for-the-badge)
+
+</p>
+
+*A beginner-friendly embedded systems project demonstrating **millis() based task scheduling**, servo motor control, ultrasonic distance measurement, and LCD interfacing without blocking delays.*
+
+</div>
 
 ---
 
-## 📷 Project Preview
+# 🌟 Overview
 
-> *(Add your project image or GIF here)*
+This project demonstrates how to build a simple **Arduino Radar Scanner** using an **HC-SR04 Ultrasonic Sensor**, **Servo Motor**, and **16×2 I2C LCD**.
 
-```
-Distance : 25.4 cm
-Angle    : 90°
-```
+Unlike traditional Arduino projects that rely heavily on `delay()`, this project uses **millis() based scheduling** to perform multiple tasks independently, resulting in smoother servo movement and better code organization.
+
+The servo continuously scans from **0° to 180°**, while the ultrasonic sensor measures object distance and the LCD displays the current distance and scanning angle in real time.
 
 ---
 
 # ✨ Features
 
-- 🔄 Continuous 0°–180° servo scanning
-- 📏 Real-time distance measurement using HC-SR04
-- 📺 Live display on 16x2 I2C LCD
-- ⏱️ `millis()` based timing (non-blocking servo control)
-- 🧩 Modular code structure
-- ⚡ Easy to modify and expand
+- 📡 Real-time ultrasonic distance measurement
+- 🔄 Continuous 0°–180° radar scanning
+- 📺 Live distance and angle display on 16×2 LCD
+- ⏱️ millis() based scheduling
+- 🚫 No `delay()` in the main loop
+- 🧩 Modular code architecture
+- 📚 Beginner-friendly source code
+- ⚡ Easy to expand with additional sensors
+- 🤖 Perfect for learning embedded systems
 
 ---
 
-# 🛠 Hardware Required
+# 📷 Project Preview
+
+<p align="center">
+<img src="https://github.com/Surya-8948/Servo_Ultrasonic_Lcd_NonblockingCode-Arduino-Radar-Non-Blocking/blob/main/image.png?raw=true" width="700"/>
+</p>
+
+---
+
+# 🛠 Hardware Components
 
 | Component | Quantity |
-|-----------|----------|
-| Arduino UNO/Nano | 1 |
+|------------|----------|
+| Arduino UNO / Nano | 1 |
 | HC-SR04 Ultrasonic Sensor | 1 |
 | SG90 Servo Motor | 1 |
-| 16x2 I2C LCD | 1 |
+| 16×2 I2C LCD | 1 |
 | Breadboard | 1 |
 | Jumper Wires | As Required |
 
 ---
 
-# 🔌 Circuit Connections
+# 🔌 Pin Connections
 
-## Ultrasonic Sensor
+## HC-SR04
 
-| HC-SR04 | Arduino |
+| Sensor | Arduino |
 |----------|----------|
 | VCC | 5V |
 | GND | GND |
@@ -64,12 +95,55 @@ Angle    : 90°
 
 ## I2C LCD
 
-| LCD | Arduino UNO |
-|-----|--------------|
+| LCD | Arduino |
+|------|----------|
 | VCC | 5V |
 | GND | GND |
 | SDA | A4 |
 | SCL | A5 |
+
+---
+
+# ⚙️ Working Principle
+
+```text
+                Start
+                  │
+                  ▼
+          Initialize Hardware
+                  │
+                  ▼
+          Rotate Servo Motor
+          (0° → 180° → 0°)
+                  │
+                  ▼
+     Trigger Ultrasonic Sensor
+                  │
+                  ▼
+      Measure Object Distance
+                  │
+                  ▼
+      Display Distance & Angle
+            on I2C LCD
+                  │
+                  ▼
+             Repeat Forever
+```
+
+---
+
+# 📁 Project Structure
+
+```text
+Arduino-Ultrasonic-Radar/
+│
+├── Arduino_Radar.ino
+├── README.md
+├── LICENSE
+│
+└── Images
+    └── image.png
+```
 
 ---
 
@@ -80,87 +154,104 @@ Angle    : 90°
 #include <LiquidCrystal_I2C.h>
 ```
 
-Install using Arduino Library Manager.
+Install both libraries from the **Arduino Library Manager**.
 
 ---
 
-# ⚙ Working Principle
-
-1. Servo starts at **0°**
-2. Rotates towards **180°**
-3. HC-SR04 measures the object distance.
-4. Distance is displayed on LCD.
-5. Current servo angle is displayed.
-6. Servo reaches **180°**, then rotates back to **0°**.
-7. Process repeats continuously.
-
----
-
-# 📁 Project Structure
-
-```
-Radar Scanner
-│
-├── setup()
-├── loop()
-│
-├── ser()      // Servo Movement
-├── dis()      // Distance Measurement
-└── LCD()      // LCD Update
-```
-
----
-
-# ⏱ Timing
+# ⏱️ Task Scheduling
 
 | Task | Interval |
 |-------|----------|
-| Servo Movement | 20 ms |
+| Servo Update | 20 ms |
 | Distance Measurement | 100 ms |
-| LCD Update | 20 ms |
+| LCD Refresh | 20 ms |
 
 ---
 
-# 🚀 Future Improvements
+# 🧠 Concepts Covered
 
-- Radar visualization using Processing
-- OLED Display Support
-- Buzzer Alert
-- RGB Status LED
-- Bluetooth Monitoring
-- WiFi Monitoring (ESP32)
-- Servo Speed Control
-- Obstacle Detection Alarm
-- FreeRTOS Version
-- Fully Non-blocking Ultrasonic Driver
-
----
-
-# 📸 Output
-
-```
-Distance : 34.2 cm
-Angle    : 135°
-```
-
----
-
-# 💡 Learning Concepts
-
-- Embedded C Programming
 - Arduino Programming
-- millis() Timing
-- Non-blocking Programming
-- Ultrasonic Sensor Interfacing
+- Embedded C++
+- millis() Timer
+- Non-Blocking Programming
 - Servo Motor Control
+- Ultrasonic Sensor Interfacing
 - LCD I2C Communication
 - Modular Programming
 
 ---
 
+# 🚀 Future Improvements
 
-# ⭐ If you found this project helpful
+- 📊 Radar Visualization using Processing
+- 📈 Serial Plotter Support
+- 🔊 Buzzer Alert
+- 🌈 RGB Status LED
+- 📡 Bluetooth Control
+- 📶 ESP32 WiFi Dashboard
+- ☁️ IoT Integration
+- 📱 Mobile App Interface
+- ⚡ Interrupt-based Ultrasonic Driver
+- 🧵 FreeRTOS Version
 
-Please give this repository a **⭐ Star** and share it with others!
+---
 
-Happy Coding ❤️
+# 🎯 Applications
+
+- Robotics
+- Obstacle Detection
+- Autonomous Vehicles
+- Distance Measurement
+- Smart Navigation
+- Educational Projects
+- Embedded Systems Learning
+
+---
+
+# 📈 Project Difficulty
+
+| Level | Status |
+|--------|--------|
+| Beginner | ✅ |
+| Intermediate | ✅ |
+| Advanced | 🔄 Expandable |
+
+---
+
+# 🤝 Contributing
+
+Contributions are always welcome!
+
+If you have ideas for improvements:
+
+1. Fork this repository
+2. Create a new branch
+3. Commit your changes
+4. Push the branch
+5. Create a Pull Request
+
+---
+
+# 📄 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+
+
+🌐 GitHub: https://github.com/Surya-8948
+
+---
+
+<div align="center">
+
+## ⭐ If you found this project helpful,
+
+### Please consider giving it a ⭐ Star!
+
+It motivates me to build and share more open-source embedded systems projects.
+
+Made with ❤️ using **Arduino & Embedded C++**
+
+</div>
