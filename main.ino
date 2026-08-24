@@ -35,18 +35,20 @@ float dis()
   if(millis()-lastdischeck>=100)  
   {
   lastdischeck = millis();
-  long duration;
+  unsigned long duration;
   digitalWrite(TRIG_PIN, LOW);
   delayMicroseconds(2);
   digitalWrite(TRIG_PIN, HIGH);
   delayMicroseconds(10);
   digitalWrite(TRIG_PIN, LOW);
-  duration = pulseIn(ECHO_PIN, HIGH,30000);
+  duration = pulseIn(ECHO_PIN, HIGH,30000);// 30 ms here we write maximum wait time in microseconds 
+  if(duration!=0)// Timeout (duration == 0) par last valid distance rahegi
+  {
   distance = duration * 0.0343 / 2;
-   return distance;
   }
 }
-
+ return distance;
+}
 void ser()
 {
     if(millis()-lastsermove>=20)
